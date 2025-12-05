@@ -22,7 +22,8 @@ with open('course enrollments.csv', mode = 'r') as file2:
         e_id = row["ID"]
         course = row["Course"]
         units = row["Units"]
-
+    
+    if e_id not in students:
         students[e_id] = {"Total_Units": 0, "CPSC_Units": 0}
 
         students[e_id]["Total_Units"] += units
@@ -32,4 +33,7 @@ with open('course enrollments.csv', mode = 'r') as file2:
 
 with open('outputfile.csv', mode='w', newline='') as file3:
    writer = csv.writer(file3, delimiter=',')
-   
+   writer.writerow(["ID", "Total Units", "CPSC Units"])
+
+   for k, v in students.items():
+        writer.writerow([k, v["Total_Units"], v["CPSC_Units"]])
