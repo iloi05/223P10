@@ -43,9 +43,12 @@ with open('Students.csv', mode='r') as file1, \
                 "Total_Units": units,
                 "CPSC_Units": units if course.startswith("CPSC") else 0
             }
+    try:
+        writer = csv.writer(file3)
+        writer.writerow(["ID", "Total Units", "CPSC Units"])
 
-    writer = csv.writer(file3)
-    writer.writerow(["ID", "Total Units", "CPSC Units"])
-
-    for sid, data in students.items():
-        writer.writerow([sid, data["Total_Units"], data["CPSC_Units"]])
+        for sid, data in students.items():
+            writer.writerow([sid, data["Total_Units"], data["CPSC_Units"]])
+    
+    except Exception as write_error:
+        print("Error writing to outputfile.csv", write_error)
